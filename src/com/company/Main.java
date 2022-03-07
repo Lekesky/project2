@@ -69,9 +69,28 @@ public class Main {
         System.out.println("Enter a priority: (5 - Most Important   0 - Least Important)");
         input.nextLine();
         int priority = input.nextInt();
-        //List tasks by priority
         
+        System.out.println(list.);
+        
+        // switch(priority){
+        //     case 0:
+        //     case 1:
+        //     case 2:
+        //     case 3:
+        //     case 4:
+        //     case 5:
+        //         System.out.println(a.getPriority());
+        //         break;
+        //     }
+
+        // for (Task task : list){
+            
+        //     System.out.println(task);
+        //     }
+            // while(Task.priority == 5)
+            // System.out.println(task);
     }
+        
 
     public static void main(String[] args) {
 

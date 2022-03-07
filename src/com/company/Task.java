@@ -3,13 +3,14 @@ package com.company;
 public class Task {
     private String title;
     private String desc;
-    private int priority;
+    public int priority;
 
     public Task(String title, String desc, int priority) {
         this.title = title;
         this.desc = desc;
         this.priority = priority;
     }
+
 
     public String getTitle() {
         return title;
