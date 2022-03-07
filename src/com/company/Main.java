@@ -3,6 +3,7 @@
 //Project 1
 package com.company;
 import java.util.ArrayList;
+import java.util.*;
 import java.util.Scanner;
 
 public class Main {
@@ -69,59 +70,68 @@ public class Main {
         System.out.println("Enter a priority: (5 - Most Important   0 - Least Important)");
         input.nextLine();
         int priority = input.nextInt();
-        
-        System.out.println(list.);
-        
-        // switch(priority){
-        //     case 0:
-        //     case 1:
-        //     case 2:
-        //     case 3:
-        //     case 4:
-        //     case 5:
-        //         System.out.println(a.getPriority());
-        //         break;
-        //     }
 
-        // for (Task task : list){
-            
-        //     System.out.println(task);
-        //     }
-            // while(Task.priority == 5)
-            // System.out.println(task);
+        for (Task a: list){     //Prints all task of a specified priority
+            if (a.priority == priority){
+                System.out.println(a);
+            }
+        }
     }
         
 
     public static void main(String[] args) {
 
         prompt();       //Initially prompt user with options before entering the while loop
-        int action1 = input.nextInt();
-        action = action1;
+        try {
+            int action = input.nextInt();
+            input.nextLine();
+        }catch (Exception e){
+//            System.out.println("Action must be an integer");
+//            prompt();
+//            input.nextLine();
+//            int action2 = input.nextInt();
+//            action = action2;
+            input.nextLine();
+            Main.main(null);
+        }
 
-        while(action != 0 ){
-            if(action == 1){
+
+        while(action != 0 ) {
+            if (action == 1) {
                 addTask();
 
-            }else if(action == 2){
+            } else if (action == 2) {
                 removeTask();
 
-            } else if(action == 3) {
+            } else if (action == 3) {
                 updateTask();
 
-            }else if(action == 4){
+            } else if (action == 4) {
                 listTask();
 
-            }else if(action == 5){
+            } else if (action == 5) {
                 listTaskPriority();
 
-            }else if(action == 0){
+            } else if (action == 0) {
                 System.out.println("Good-bye!");
                 break;
+            } else {
+                System.out.println("Invalid action, Please try again..");
             }
-
-            prompt();       //Prompts user again after completing option
-            int action2 = input.nextInt();
-            action = action2;       //Updates the action with new action
+            try {
+                prompt();       //Prompts user again after completing option
+                int action2 = input.nextInt();
+                if (action2 == (int)action2) {
+                    action = action2;
+                }
+//                action = action2;       //Updates the action with new action
+            } catch (InputMismatchException e) {
+                System.out.println("Action must be an integer");
+                input.nextLine();
+                prompt();
+                int action2 = input.nextInt();
+                action = action2;
+            }
 
         }
         System.out.println("Good-bye!");        //Prints if user initially enters 0
