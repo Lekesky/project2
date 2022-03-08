@@ -27,53 +27,115 @@ public class Main {
 
     public static void addTask(){       //Adds task
         System.out.println("What task would you like to add?"); //Name of task
-        input.nextLine();
         String itemAdd = input.nextLine();
         System.out.println("Enter task description");
         String itemDesc = input.nextLine();
-        System.out.println("Enter task priority: (5 - Most Important   0 - Least Important)");
-        int itemPrior = input.nextInt();
-        Task a = new Task(itemAdd, itemDesc, itemPrior);
-        list.add(a);
+        boolean priority = true;
+        while(priority){
+            try{
+                System.out.println("Enter task priority: (5 - Most Important   0 - Least Important)");
+                input.nextLine();
+                int itemPrior = input.nextInt();
+                Task a = new Task(itemAdd, itemDesc, itemPrior);
+                list.add(a);
+                priority = false;
+            }catch(InputMismatchException e){
+                System.out.println("Must be an integer");
+            }
+        }
         System.out.println("List has been updated!");
     }
 
     public static void removeTask(){        //Removes task
-        System.out.println("List: " + list);
-        System.out.println("What task would you like to remove?");
-        int itemRemove = input.nextInt();
-        list.remove(itemRemove);
+        boolean remove = true;
+        while(remove){
+            try{
+            System.out.println("List: " + list);
+            System.out.println("What task would you like to remove?");
+            input.nextLine();
+            int itemRemove = input.nextInt();
+            list.remove(itemRemove);
+            remove = false;
+            }catch(InputMismatchException e){
+                System.out.println("\nMust be an integer");
+            }
+            catch(IndexOutOfBoundsException e){
+                System.out.println("\nNumber entered is outside of array\nTry again\n");
+            }
+        }
         System.out.println("List has been updated!");
     }
 
     public static void updateTask(){        //Updates task
-        System.out.println("List: " + list);
-        System.out.println("Select an element to update");
-        int itemUpdateNum = input.nextInt();
+        Integer itemUpdateNum = null; 
+        boolean update = true;
+        while(update){
+            try{
+                System.out.println("List: " + list);
+                System.out.println("Select an element to update");
+                input.nextLine();
+                itemUpdateNum = input.nextInt();
+                if (!(itemUpdateNum < 5 && itemUpdateNum > 0)){
+                    System.out.println("Number entered is outside of array\nTry again\n");
+                    System.out.println("List: " + list);
+                    System.out.println("Select an element to update");
+                    itemUpdateNum = input.nextInt();
+                    update = false;
+                }
+            }catch(InputMismatchException e){
+                System.out.println("\nMust be an integer");
+            }
+        }
+        
         System.out.println("What task would you like to replace it with?");
         input.nextLine();
         String itemUpdate = input.nextLine();
         System.out.println("Enter new description for task");
         String itemNewDesc = input.nextLine();
-        System.out.println("Enter new priority: (5 - Most Important   0 - Least Important)");
-        int itemNewPrior = input.nextInt();
-        Task a = new Task(itemUpdate,itemNewDesc, itemNewPrior);
-        list.set(itemUpdateNum, a);
+        boolean priority = true;
+        while(priority){
+            try{
+                System.out.println("Enter task priority: (5 - Most Important   0 - Least Important)");
+                input.nextLine();
+                int itemNewPrior = input.nextInt();
+                Task a = new Task(itemUpdate, itemNewDesc, itemNewPrior);
+                list.set(itemUpdateNum, a);
+                priority = false;
+            }catch(InputMismatchException e){
+                System.out.println("Must be an integer");
+            }
+        }
+        
         System.out.println("List has been updated!");
     }
 
     public static void listTask(){      //Prints all tasks in the ArrayList
-        System.out.println("List: " + list);
+        if(list.size() == 0){
+            System.out.println("Array is empty");
+        }else
+            System.out.println("List: " + list);
     }
 
     public static void listTaskPriority(){
         System.out.println("Enter a priority: (5 - Most Important   0 - Least Important)");
-        input.nextLine();
-        int priority = input.nextInt();
-
-        for (Task a: list){     //Prints all task of a specified priority
-            if (a.priority == priority){
-                System.out.println(a);
+        boolean listPriority = true;
+        while(listPriority){
+            try{
+                input.nextLine();
+            int priority = input.nextInt();
+            if(priority >= 0 && priority <= 5){
+                for (Task a: list){     //Prints all task of a specified priority
+                    if (a.priority == priority){
+                        System.out.println(a);
+                    }
+                }
+            }else{
+                System.out.println("Number entered is outside of array\nTry again\n");
+                Main.listTaskPriority();
+            }
+            listPriority = false;
+        }catch(InputMismatchException e){
+                System.out.println("\nMust be an integer");
             }
         }
     }
@@ -83,14 +145,11 @@ public class Main {
 
         prompt();       //Initially prompt user with options before entering the while loop
         try {
-            int action = input.nextInt();
+            int action1 = input.nextInt();
+            action = action1;
             input.nextLine();
-        }catch (Exception e){
-//            System.out.println("Action must be an integer");
-//            prompt();
-//            input.nextLine();
-//            int action2 = input.nextInt();
-//            action = action2;
+        }catch (InputMismatchException e){
+           System.out.println("Action must be an integer");
             input.nextLine();
             Main.main(null);
         }
@@ -114,25 +173,20 @@ public class Main {
 
             } else if (action == 0) {
                 System.out.println("Good-bye!");
-                break;
-            } else {
+                System.exit(0);
+            } else
                 System.out.println("Invalid action, Please try again..");
-            }
-            try {
-                prompt();       //Prompts user again after completing option
-                int action2 = input.nextInt();
-                if (action2 == (int)action2) {
-                    action = action2;
-                }
-//                action = action2;       //Updates the action with new action
-            } catch (InputMismatchException e) {
-                System.out.println("Action must be an integer");
-                input.nextLine();
                 prompt();
+
+            try {
                 int action2 = input.nextInt();
                 action = action2;
+                input.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("Action must be an integer");
+                input.nextLine();
+                Main.main(null);
             }
-
         }
         System.out.println("Good-bye!");        //Prints if user initially enters 0
     }
