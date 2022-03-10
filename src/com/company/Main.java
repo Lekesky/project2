@@ -75,13 +75,13 @@ public class Main {
                 System.out.println("Select an element to update");
                 input.nextLine();
                 itemUpdateNum = input.nextInt();
-                if (!(itemUpdateNum < 5 && itemUpdateNum > 0)){
+                if (!(itemUpdateNum < 5 && itemUpdateNum >= 0)){
                     System.out.println("Number entered is outside of array\nTry again\n");
                     System.out.println("List: " + list);
                     System.out.println("Select an element to update");
                     itemUpdateNum = input.nextInt();
-                    update = false;
                 }
+                update = false;
             }catch(InputMismatchException e){
                 System.out.println("\nMust be an integer");
             }
